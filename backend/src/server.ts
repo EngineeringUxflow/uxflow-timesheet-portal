@@ -11,8 +11,10 @@ import userRoutes from './routes/users';
 import adminRoutes from './routes/admin';
 import emailRoutes from './routes/emailRoutes';
 import demoDataRoutes from './routes/demo-data';
+import syncRoutes from './routes/syncRoutes';
 // import testEmailRoutes from './routes/testEmail';
 import { performanceMiddleware } from './middleware/performance';
+import { HealthService } from './services/healthService';
 // import { cacheMiddleware } from './middleware/cache';
 // import performanceRoutes from './routes/performance';
 
@@ -40,19 +42,54 @@ app.use('/api/admin', adminRoutes);
 // app.use('/api/performance', performanceRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/demo', demoDataRoutes);
+app.use('/api/sync', syncRoutes);
 // app.use('/api/test', testEmailRoutes);
 
 // Apply caching to specific routes - Disabled for now
 // app.use('/api/timesheets', cacheMiddleware(60)); // Cache for 1 minute
 // app.use('/api/projects', cacheMiddleware(300)); // Cache for 5 minutes
 
-// Health check
+// Basic health check
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     timestamp: new Date().toISOString(),
     service: 'UXFLOW Timesheet API'
   });
+});
+
+// Comprehensive health check
+app.get('/health/detailed', async (req, res) => {
+  try {
+    const healthStatus = await HealthService.getFullHealthStatus();
+    const statusCode = healthStatus.status === 'healthy' ? 200 : 
+                      healthStatus.status === 'degraded' ? 206 : 503;
+    
+    res.status(statusCode).json(healthStatus);
+  } catch (error) {
+    res.status(503).json({
+      status: 'unhealthy',
+      timestamp: new Date().toISOString(),
+      error: 'Health check failed'
+    });
+  }
+});
+
+// Data consistency check
+app.get('/health/consistency', async (req, res) => {
+  try {
+    const consistencyCheck = await HealthService.checkDataConsistency();
+    res.json({
+      timestamp: new Date().toISOString(),
+      ...consistencyCheck
+    });
+  } catch (error) {
+    res.status(500).json({
+      consistent: false,
+      timestamp: new Date().toISOString(),
+      error: 'Consistency check failed'
+    });
+  }
 });
 
 // Error handling

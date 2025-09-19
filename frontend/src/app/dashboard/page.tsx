@@ -61,6 +61,7 @@ export default function Dashboard() {
   });
   const [editingRecord, setEditingRecord] = useState<any>(null);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [syncStatus, setSyncStatus] = useState({ syncing: false, lastSync: null });
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [exportFilters, setExportFilters] = useState({
     consultant: 'all',
@@ -327,6 +328,51 @@ export default function Dashboard() {
     } catch (error) {
       console.error('Erro ao sincronizar:', error);
       alert('❌ Erro ao sincronizar com banco de dados.');
+    }
+  };
+
+  const syncToDatabase = async () => {
+    try {
+      setSyncStatus({ syncing: true, lastSync: null });
+      
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sync/sync-timesheets`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ localData: localTimesheets })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setSyncStatus({ syncing: false, lastSync: new Date().toISOString() });
+        setHasUnsavedChanges(false);
+        alert(`✅ Sincronização concluída!\n📊 ${result.synced} registros sincronizados`);
+      } else {
+        throw new Error(result.error || 'Erro na sincronização');
+      }
+    } catch (error) {
+      setSyncStatus({ syncing: false, lastSync: null });
+      console.error('Erro na sincronização:', error);
+      alert('❌ Erro na sincronização. Tente novamente.');
+    }
+  };
+
+  const loadFromDatabase = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sync/timesheets-from-db`);
+      const result = await response.json();
+      
+      if (result.success) {
+        setLocalTimesheets(result.data);
+        localStorage.setItem('uxflow_timesheets', JSON.stringify(result.data));
+        alert(`✅ Dados carregados do banco!\n📊 ${result.data.length} registros`);
+      }
+    } catch (error) {
+      console.error('Erro ao carregar do banco:', error);
+      alert('❌ Erro ao carregar dados do banco.');
     }
   };
 
@@ -681,9 +727,26 @@ export default function Dashboard() {
                     variant="outlined"
                     startIcon={<FileDownload />}
                     onClick={() => setShowExportDialog(true)}
-                    sx={{ borderRadius: 3 }}
+                    sx={{ borderRadius: 3, mr: 2 }}
                   >
                     Exportar Excel
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={syncToDatabase}
+                    disabled={syncStatus.syncing}
+                    sx={{ borderRadius: 3, mr: 2 }}
+                  >
+                    {syncStatus.syncing ? 'Sincronizando...' : '🔄 Sync DB'}
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={loadFromDatabase}
+                    sx={{ borderRadius: 3 }}
+                  >
+                    📥 Carregar DB
                   </Button>
                 </Box>
               </Box>
