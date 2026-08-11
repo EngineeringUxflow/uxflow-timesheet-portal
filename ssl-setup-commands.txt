@@ -1,0 +1,73 @@
+# Comandos para configurar SSL no VPS (31.97.175.224)
+# Execute estes comandos via SSH no servidor
+
+# 1. Conectar ao servidor
+ssh root@31.97.175.224
+
+# 2. Instalar Certbot
+apt update
+apt install -y certbot python3-certbot-nginx
+
+# 3. Parar nginx temporariamente
+systemctl stop nginx
+
+# 4. Gerar certificado SSL
+certbot certonly --standalone \
+    --email contato@uxflow.tech \
+    --agree-tos \
+    --no-eff-email \
+    -d cloudsolutionssap.com \
+    -d www.cloudsolutionssap.com
+
+# 5. Criar configuração nginx
+cat > /etc/nginx/sites-available/cloudsolutionssap.com << 'EOF'
+server {
+    listen 80;
+    server_name cloudsolutionssap.com www.cloudsolutionssap.com;
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name cloudsolutionssap.com www.cloudsolutionssap.com;
+
+    ssl_certificate /etc/letsencrypt/live/cloudsolutionssap.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cloudsolutionssap.com/privkey.pem;
+    
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSL:10m;
+
+    root /var/www/cloudsolutionssap.com;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+}
+EOF
+
+# 6. Ativar site
+ln -sf /etc/nginx/sites-available/cloudsolutionssap.com /etc/nginx/sites-enabled/
+
+# 7. Criar diretório e copiar arquivos
+mkdir -p /var/www/cloudsolutionssap.com
+# Copie os arquivos da pasta website/ para /var/www/cloudsolutionssap.com/
+
+# 8. Definir permissões
+chown -R www-data:www-data /var/www/cloudsolutionssap.com
+chmod -R 755 /var/www/cloudsolutionssap.com
+
+# 9. Testar e reiniciar nginx
+nginx -t
+systemctl start nginx
+systemctl reload nginx
+
+# 10. Configurar renovação automática
+crontab -l | grep -q certbot || (crontab -l 2>/dev/null; echo "0 12 * * * /usr/bin/certbot renew --quiet") | crontab -
+
+# 11. Verificar status
+systemctl status nginx
+curl -I https://cloudsolutionssap.com

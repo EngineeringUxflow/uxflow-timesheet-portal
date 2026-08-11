@@ -3,6 +3,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  output: 'standalone',
   // Cache busting and performance optimization
   generateEtags: false,
   poweredByHeader: false,

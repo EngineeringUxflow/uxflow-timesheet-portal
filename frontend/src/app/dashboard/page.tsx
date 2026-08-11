@@ -13,7 +13,7 @@ import {
   Add, Edit, Delete, AccessTime, PlayArrow, Stop, 
   Schedule, Assignment, TrendingUp, CheckCircle, Pending, ExitToApp, FileDownload
 } from '@mui/icons-material';
-import { Timesheet } from '../types';
+import { Timesheet } from '../../types';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import * as XLSX from 'xlsx';
 
@@ -165,7 +165,7 @@ export default function Dashboard() {
     const dynamicTasks: Task[] = [];
     const uniqueProjects = new Set();
     
-    localTimesheets.forEach(record => {
+    localTimesheets.forEach((record: any) => {
       if (!uniqueProjects.has(record.project) && !baseTasks.find(t => t.project === record.project)) {
         uniqueProjects.add(record.project);
         dynamicTasks.push({

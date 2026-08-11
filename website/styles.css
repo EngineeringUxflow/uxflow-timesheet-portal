@@ -1,0 +1,1265 @@
+/* SAP Fiori Design System - Official Implementation */
+:root {
+  /* SAP Fiori Color Palette */
+  --sapBrandColor: #0070f3;
+  --sapHighlightColor: #0070f3;
+  --sapBaseColor: #ffffff;
+  --sapShellColor: #354a5f;
+  --sapBackgroundColor: #fafafa;
+  --sapNeutralColor: #6a6d70;
+  --sapPositiveColor: #107e3e;
+  --sapNegativeColor: #b00;
+  --sapCriticalColor: #e9730c;
+  --sapInformationColor: #0a6ed1;
+  
+  /* SAP Fiori Typography */
+  --sapFontFamily: "72", "72full", Arial, Helvetica, sans-serif;
+  --sapFontSize: 0.875rem;
+  --sapFontSizeSmall: 0.75rem;
+  --sapFontSizeMedium: 1rem;
+  --sapFontSizeLarge: 1.125rem;
+  --sapFontSizeXL: 1.5rem;
+  --sapFontSizeXXL: 2rem;
+  
+  /* SAP Fiori Spacing */
+  --sapContent_MarginSize: 1rem;
+  --sapContent_Padding: 1rem;
+  --sapElement_Height: 2.25rem;
+  --sapElement_Compact_Height: 1.625rem;
+  
+  /* SAP Fiori Borders */
+  --sapElement_BorderWidth: 0.0625rem;
+  --sapElement_BorderCornerRadius: 0.25rem;
+  
+  /* SAP Fiori Shadows */
+  --sapContent_Shadow0: 0 0 0 1px rgba(0,0,0,0.1);
+  --sapContent_Shadow1: 0 2px 4px 0 rgba(0,0,0,0.16);
+  --sapContent_Shadow2: 0 4px 8px 0 rgba(0,0,0,0.16);
+  --sapContent_Shadow3: 0 8px 16px 0 rgba(0,0,0,0.16);
+}
+
+/* Reset and Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--sapFontFamily);
+  font-size: var(--sapFontSize);
+  line-height: 1.4;
+  color: var(--sapNeutralColor);
+  background-color: var(--sapBackgroundColor);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* SAP Fiori Container */
+.fd-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--sapContent_Padding);
+}
+
+/* SAP Fiori Grid System */
+.fd-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem;
+}
+
+.fd-col {
+  padding: 0 0.5rem;
+  flex: 1;
+}
+
+.fd-col-md--6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.fd-col-lg--6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+/* SAP Fiori Shell Bar */
+.fd-shellbar {
+  background: var(--sapShellColor);
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--sapContent_Padding);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: var(--sapContent_Shadow1);
+}
+
+.fd-shellbar__group {
+  display: flex;
+  align-items: center;
+}
+
+.fd-shellbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fd-shellbar__logo-icon {
+  width: 2rem;
+  height: 2rem;
+  background: var(--sapBrandColor);
+  border-radius: var(--sapElement_BorderCornerRadius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+}
+
+.fd-shellbar__title {
+  font-size: var(--sapFontSizeLarge);
+  font-weight: 600;
+  color: white;
+  line-height: 1;
+}
+
+.fd-shellbar__subtitle {
+  font-size: var(--sapFontSizeSmall);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 0.5rem;
+}
+
+.fd-shellbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.fd-shellbar__nav-item {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-weight: 400;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--sapElement_BorderCornerRadius);
+  transition: all 0.2s ease;
+}
+
+.fd-shellbar__nav-item:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.fd-shellbar__nav-item--emphasized {
+  background: var(--sapBrandColor);
+  color: white;
+  font-weight: 600;
+}
+
+.fd-shellbar__nav-item--emphasized:hover {
+  background: var(--sapHighlightColor);
+}
+
+/* SAP Fiori Page */
+.fd-page {
+  padding: 3rem 0;
+}
+
+.fd-page--hero {
+  background: linear-gradient(135deg, var(--sapBackgroundColor) 0%, var(--sapBaseColor) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: calc(2.75rem + 3rem);
+}
+
+.fd-page--solutions {
+  background: var(--sapBaseColor);
+}
+
+.fd-page--cloud {
+  background: var(--sapBackgroundColor);
+}
+
+.fd-page--products {
+  background: var(--sapBackgroundColor);
+}
+
+.fd-page--timesheet {
+  background: var(--sapBaseColor);
+}
+
+.fd-page--training {
+  background: var(--sapBaseColor);
+}
+
+.fd-page--consulting {
+  background: var(--sapBackgroundColor);
+}
+
+.fd-page--contact {
+  background: var(--sapBackgroundColor);
+}
+
+/* Hero Section */
+.fd-hero__content {
+  padding: 2rem 0;
+}
+
+.fd-hero__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+/* BTP Background */
+.fd-btp-background {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(135deg, rgba(0, 112, 243, 0.05) 0%, rgba(53, 74, 95, 0.03) 100%);
+  border-radius: var(--sapElement_BorderCornerRadius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fd-btp-layer {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.fd-btp-layer--1 {
+  top: 15%;
+}
+
+.fd-btp-layer--2 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.fd-btp-layer--3 {
+  bottom: 15%;
+}
+
+.fd-btp-component {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--sapElement_BorderCornerRadius);
+  font-size: var(--sapFontSizeSmall);
+  font-weight: 600;
+  color: var(--sapNeutralColor);
+  box-shadow: var(--sapContent_Shadow1);
+  border-left: 3px solid var(--sapBrandColor);
+}
+
+.fd-btp-component--center {
+  background: var(--sapBrandColor);
+  color: white;
+  font-size: var(--sapFontSizeLarge);
+  padding: 1rem 2rem;
+}
+
+.fd-hero-overlay-card {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  min-width: 280px;
+}
+
+/* SAP Fiori Typography */
+.fd-title {
+  font-family: var(--sapFontFamily);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--sapNeutralColor);
+  margin-bottom: 1rem;
+}
+
+.fd-title--h1 {
+  font-size: var(--sapFontSizeXXL);
+  font-weight: 700;
+}
+
+.fd-title--h2 {
+  font-size: var(--sapFontSizeXL);
+}
+
+.fd-title--h3 {
+  font-size: var(--sapFontSizeLarge);
+}
+
+.fd-text {
+  font-family: var(--sapFontFamily);
+  line-height: 1.5;
+  color: var(--sapNeutralColor);
+}
+
+.fd-text--large {
+  font-size: var(--sapFontSizeLarge);
+}
+
+.fd-text--small {
+  font-size: var(--sapFontSizeSmall);
+}
+
+.fd-text--emphasized {
+  color: var(--sapBrandColor);
+  font-weight: 600;
+}
+
+/* SAP Fiori Object Status */
+.fd-object-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--sapElement_BorderCornerRadius);
+  font-size: var(--sapFontSizeSmall);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
+.fd-object-status--positive {
+  background: rgba(16, 126, 62, 0.1);
+  color: var(--sapPositiveColor);
+}
+
+.fd-object-status--informative {
+  background: rgba(10, 110, 209, 0.1);
+  color: var(--sapInformationColor);
+}
+
+.fd-object-status__icon {
+  font-size: 0.75rem;
+}
+
+.fd-object-status__text {
+  font-size: var(--sapFontSizeSmall);
+}
+
+/* SAP Buttons */
+.fd-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: var(--sapElement_BorderWidth) solid transparent;
+  border-radius: var(--sapElement_BorderCornerRadius);
+  font-family: var(--sapFontFamily);
+  font-size: var(--sapFontSize);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: var(--sapBrandColor);
+}
+
+.fd-button--emphasized {
+  background: var(--sapBrandColor);
+  color: white;
+  border-color: var(--sapBrandColor);
+}
+
+.fd-button--emphasized:hover {
+  background: var(--sapHighlightColor);
+  border-color: var(--sapHighlightColor);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 112, 243, 0.3);
+}
+
+.fd-button--transparent {
+  background: transparent;
+  color: var(--sapBrandColor);
+  border-color: var(--sapBrandColor);
+}
+
+.fd-button--transparent:hover {
+  background: var(--sapBrandColor);
+  color: white;
+}
+
+.fd-button--full-width {
+  width: 100%;
+  justify-content: center;
+}
+
+.fd-button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Section Header */
+.fd-section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* SAP BTP Visual Enhancements */
+.fd-btp-visual-card {
+  background: linear-gradient(135deg, #0070f3 0%, #00d4ff 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 112, 243, 0.3);
+  transition: all 0.3s ease;
+}
+
+.fd-btp-visual-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(0, 112, 243, 0.4);
+}
+
+.fd-integration-visual {
+  background: linear-gradient(135deg, #107e3e 0%, #00b050 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(16, 126, 62, 0.3);
+  transition: all 0.3s ease;
+}
+
+.fd-integration-visual:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(16, 126, 62, 0.4);
+}
+
+.fd-hana-visual {
+  background: linear-gradient(135deg, #e9730c 0%, #ff9500 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(233, 115, 12, 0.3);
+  transition: all 0.3s ease;
+}
+
+.fd-hana-visual:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(233, 115, 12, 0.4);
+}
+
+/* Enhanced Visual Icons */
+.fd-visual-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.fd-visual-icon--btp {
+  background: linear-gradient(135deg, #0070f3 0%, #00d4ff 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(0, 112, 243, 0.3);
+}
+
+.fd-visual-icon--integration {
+  background: linear-gradient(135deg, #107e3e 0%, #00b050 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(16, 126, 62, 0.3);
+}
+
+.fd-visual-icon--hana {
+  background: linear-gradient(135deg, #e9730c 0%, #ff9500 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(233, 115, 12, 0.3);
+}
+
+/* Commercial Cards with Modern Design */
+.fd-commercial-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 112, 243, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fd-commercial-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+  border-color: var(--sapBrandColor);
+}
+
+.fd-feature-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 112, 243, 0.1);
+  color: var(--sapBrandColor);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: var(--sapFontSizeSmall);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Enhanced Metrics Display */
+.fd-metric-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.fd-metric-item {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(0, 112, 243, 0.05) 0%, rgba(0, 112, 243, 0.1) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 112, 243, 0.1);
+  transition: all 0.3s ease;
+}
+
+.fd-metric-item:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, rgba(0, 112, 243, 0.1) 0%, rgba(0, 112, 243, 0.15) 100%);
+}
+
+.fd-metric-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--sapBrandColor);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.fd-metric-label {
+  font-size: var(--sapFontSizeSmall);
+  color: var(--sapNeutralColor);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Technology Stack Visualization */
+.fd-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.fd-tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: white;
+  border: 2px solid rgba(0, 112, 243, 0.1);
+  border-radius: 25px;
+  font-weight: 600;
+  color: var(--sapNeutralColor);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fd-tech-badge:hover {
+  border-color: var(--sapBrandColor);
+  color: var(--sapBrandColor);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 112, 243, 0.2);
+}
+
+/* Enhanced Tile Container */
+.fd-tile-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* Cards */
+.fd-card {
+  background: var(--sapBaseColor);
+  border: var(--sapElement_BorderWidth) solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--sapElement_BorderCornerRadius);
+  box-shadow: var(--sapContent_Shadow1);
+  overflow: hidden;
+  transition: all 0.2s ease;
+  height: 100%;
+}
+
+.fd-card:hover {
+  box-shadow: var(--sapContent_Shadow2);
+  transform: translateY(-2px);
+}
+
+.fd-card--featured {
+  border-color: var(--sapBrandColor);
+  background: linear-gradient(135deg, var(--sapBaseColor) 0%, rgba(0, 112, 243, 0.02) 100%);
+}
+
+.fd-card--cloud {
+  height: 100%;
+}
+
+.fd-card__header {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: var(--sapElement_BorderWidth) solid rgba(0, 0, 0, 0.1);
+}
+
+.fd-card__avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--sapElement_BorderCornerRadius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: rgba(0, 112, 243, 0.1);
+  color: var(--sapBrandColor);
+}
+
+.fd-card__avatar--aws {
+  background: rgba(255, 153, 0, 0.1);
+  color: #ff9900;
+}
+
+.fd-card__avatar--azure {
+  background: rgba(0, 120, 212, 0.1);
+  color: #0078d4;
+}
+
+.fd-card__avatar--gcp {
+  background: rgba(66, 133, 244, 0.1);
+  color: #4285f4;
+}
+
+.fd-card__title-area {
+  flex: 1;
+}
+
+.fd-card__title {
+  font-size: var(--sapFontSizeLarge);
+  font-weight: 600;
+  color: var(--sapNeutralColor);
+  margin-bottom: 0.25rem;
+}
+
+.fd-card__subtitle {
+  font-size: var(--sapFontSize);
+  color: rgba(106, 109, 112, 0.7);
+}
+
+.fd-card__content {
+  padding: 1.5rem;
+}
+
+.fd-card__metrics {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.fd-metric {
+  text-align: center;
+}
+
+.fd-metric__value {
+  font-size: var(--sapFontSizeXL);
+  font-weight: 700;
+  color: var(--sapBrandColor);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.fd-metric__label {
+  font-size: var(--sapFontSizeSmall);
+  color: rgba(106, 109, 112, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Lists */
+.fd-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fd-list__item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.fd-list__item:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--sapPositiveColor);
+  font-weight: bold;
+}
+
+.fd-list__item:last-child {
+  border-bottom: none;
+}
+
+/* Cloud Grid */
+.fd-cloud-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* Consulting Grid */
+.fd-consulting-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* Training Styles */
+.fd-training-highlight {
+  margin-bottom: 3rem;
+}
+
+.fd-training-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.fd-training-info {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.fd-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--sapFontSizeSmall);
+  color: var(--sapNeutralColor);
+}
+
+.fd-info-item i {
+  color: var(--sapBrandColor);
+}
+
+.fd-training-price {
+  text-align: right;
+}
+
+.fd-price-label {
+  display: block;
+  font-size: var(--sapFontSizeSmall);
+  color: var(--sapNeutralColor);
+  margin-bottom: 0.25rem;
+}
+
+.fd-price-value {
+  display: block;
+  font-size: var(--sapFontSizeXL);
+  font-weight: 700;
+  color: var(--sapBrandColor);
+  line-height: 1;
+}
+
+.fd-price-unit {
+  font-size: var(--sapFontSizeSmall);
+  color: var(--sapNeutralColor);
+}
+
+.fd-training-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.fd-training-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: var(--sapElement_BorderWidth) solid rgba(0, 0, 0, 0.1);
+}
+
+.fd-duration {
+  font-size: var(--sapFontSizeSmall);
+  font-weight: 600;
+  color: var(--sapNeutralColor);
+  background: rgba(0, 112, 243, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--sapElement_BorderCornerRadius);
+}
+
+.fd-level {
+  font-size: var(--sapFontSizeSmall);
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--sapElement_BorderCornerRadius);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fd-level--intermediate {
+  background: rgba(233, 115, 12, 0.1);
+  color: var(--sapCriticalColor);
+}
+
+.fd-level--advanced {
+  background: rgba(187, 0, 0, 0.1);
+  color: var(--sapNegativeColor);
+}
+
+.fd-training-formats {
+  margin-top: 3rem;
+}
+
+.fd-format-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.fd-format-card {
+  background: var(--sapBaseColor);
+  border: var(--sapElement_BorderWidth) solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--sapElement_BorderCornerRadius);
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.fd-format-card:hover {
+  box-shadow: var(--sapContent_Shadow2);
+  transform: translateY(-2px);
+  border-color: var(--sapBrandColor);
+}
+
+.fd-format-icon {
+  width: 4rem;
+  height: 4rem;
+  background: rgba(0, 112, 243, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.5rem;
+  color: var(--sapBrandColor);
+}
+
+.fd-format-card h4 {
+  font-size: var(--sapFontSizeLarge);
+  font-weight: 600;
+  color: var(--sapNeutralColor);
+  margin-bottom: 1rem;
+}
+
+.fd-format-card p {
+  font-size: var(--sapFontSize);
+  color: rgba(106, 109, 112, 0.8);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.fd-format-price {
+  font-size: var(--sapFontSizeLarge);
+  font-weight: 700;
+  color: var(--sapBrandColor);
+}
+
+/* Tables */
+.fd-table-container {
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+.fd-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--sapElement_BorderCornerRadius);
+  overflow: hidden;
+  box-shadow: var(--sapContent_Shadow1);
+}
+
+.fd-table__header {
+  background: var(--sapShellColor);
+}
+
+.fd-table__row {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.fd-table__cell {
+  padding: 1rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.fd-table__header .fd-table__cell {
+  color: white;
+  font-weight: 600;
+}
+
+/* Tiles */
+.fd-tile {
+  background: var(--sapBaseColor);
+  border: var(--sapElement_BorderWidth) solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--sapElement_BorderCornerRadius);
+  box-shadow: var(--sapContent_Shadow1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.fd-tile:hover {
+  box-shadow: var(--sapContent_Shadow2);
+  transform: translateY(-2px);
+}
+
+.fd-tile--featured {
+  border-color: var(--sapBrandColor);
+  background: linear-gradient(135deg, var(--sapBaseColor) 0%, rgba(0, 112, 243, 0.02) 100%);
+}
+
+.fd-tile__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fd-tile__media {
+  flex-shrink: 0;
+}
+
+.fd-tile__icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--sapElement_BorderCornerRadius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.fd-tile__icon--blue {
+  background: rgba(0, 112, 243, 0.1);
+  color: var(--sapBrandColor);
+}
+
+.fd-tile__icon--green {
+  background: rgba(16, 126, 62, 0.1);
+  color: var(--sapPositiveColor);
+}
+
+.fd-tile__icon--orange {
+  background: rgba(233, 115, 12, 0.1);
+  color: var(--sapCriticalColor);
+}
+
+.fd-tile__icon--purple {
+  background: rgba(111, 66, 193, 0.1);
+  color: #6f42c1;
+}
+
+.fd-tile__content {
+  flex: 1;
+}
+
+.fd-tile__title {
+  font-size: var(--sapFontSizeLarge);
+  font-weight: 600;
+  color: var(--sapNeutralColor);
+  margin-bottom: 0.25rem;
+}
+
+.fd-tile__subtitle {
+  font-size: var(--sapFontSize);
+  color: rgba(106, 109, 112, 0.7);
+}
+
+.fd-tile__badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  margin-bottom: 0;
+}
+
+/* Numeric Content */
+.fd-numeric-content {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.fd-numeric-content__kpi-container {
+  text-align: center;
+}
+
+.fd-numeric-content__kpi {
+  font-size: var(--sapFontSizeXL);
+  font-weight: 700;
+  color: var(--sapBrandColor);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.fd-numeric-content__scale-text {
+  font-size: var(--sapFontSizeSmall);
+  color: rgba(106, 109, 112, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Contact */
+.fd-contact-info {
+  padding: 2rem 0;
+}
+
+.fd-contact-details {
+  margin-top: 2rem;
+}
+
+.fd-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.fd-contact-item__icon {
+  width: 2rem;
+  height: 2rem;
+  background: rgba(0, 112, 243, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sapBrandColor);
+  font-size: 0.875rem;
+}
+
+.fd-contact-item__text {
+  font-size: var(--sapFontSize);
+  color: var(--sapNeutralColor);
+}
+
+/* Forms */
+.fd-form-container {
+  background: white;
+  border-radius: var(--sapElement_BorderCornerRadius);
+  padding: 2rem;
+  box-shadow: var(--sapContent_Shadow1);
+}
+
+.fd-form-header {
+  margin-bottom: 2rem;
+}
+
+.fd-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.fd-form-label {
+  display: block;
+  font-size: var(--sapFontSize);
+  font-weight: 600;
+  color: var(--sapNeutralColor);
+  margin-bottom: 0.5rem;
+}
+
+.fd-input,
+.fd-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: var(--sapElement_BorderWidth) solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--sapElement_BorderCornerRadius);
+  font-family: var(--sapFontFamily);
+  font-size: var(--sapFontSize);
+  transition: border-color 0.2s ease;
+}
+
+.fd-input:focus,
+.fd-textarea:focus {
+  outline: none;
+  border-color: var(--sapBrandColor);
+}
+
+.fd-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Footer */
+.fd-footer {
+  background: var(--sapShellColor);
+  color: white;
+  padding: 3rem 0 1rem;
+}
+
+.fd-footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.fd-footer-section {
+  padding: 0;
+}
+
+.fd-footer-brand {
+  margin-bottom: 1rem;
+}
+
+.fd-footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--sapFontSizeLarge);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.fd-footer-title {
+  font-size: var(--sapFontSizeLarge);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.fd-footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fd-footer-list li {
+  margin-bottom: 0.5rem;
+}
+
+.fd-footer-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.fd-footer-link:hover {
+  color: white;
+}
+
+.fd-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .fd-tile-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .fd-commercial-card {
+    padding: 1.5rem;
+  }
+  
+  .fd-tech-stack {
+    flex-direction: column;
+  }
+  
+  .fd-metric-showcase {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .fd-button-group {
+    flex-direction: column;
+  }
+  
+  .fd-shellbar__nav {
+    display: none;
+  }
+  
+  .fd-col-md--6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .fd-training-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .fd-training-price {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .fd-metric-showcase {
+    grid-template-columns: 1fr;
+  }
+  
+  .fd-visual-icon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+  }
+  
+  .fd-commercial-card {
+    padding: 1rem;
+  }
+  
+  .fd-page {
+    padding: 2rem 0;
+  }
+  
+  .fd-container {
+    padding: 0 0.5rem;
+  }
+}

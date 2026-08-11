@@ -53,3 +53,9 @@ prisma/migrations/
 # Temporary files
 *.tmp
 *.temp
+
+# Archives / build artifacts
+*.tar
+*.tar.gz
+*.zip
+*.tgz

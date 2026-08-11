@@ -53,24 +53,37 @@ export default function Header() {
   };
 
   return (
-    <AppBar position="static" elevation={0} sx={{ 
-      background: 'linear-gradient(45deg, #1976d2, #42a5f5)' 
+    <AppBar position="static" elevation={0} className="sap-shell-header" sx={{ 
+      background: '#0070f2',
+      height: '3rem',
+      minHeight: '3rem'
     }}>
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 700 }}>
-          UXFLOW Timesheet
+      <Toolbar sx={{ minHeight: '3rem !important', height: '3rem' }}>
+        <Typography variant="h6" component="div" sx={{ 
+          flexGrow: 1, 
+          fontWeight: 400,
+          fontSize: '1.125rem',
+          color: 'white'
+        }}>
+          UXFLOW SAP Timesheet Portal
         </Typography>
 
         {user && (
           <>
             {/* Navigation Buttons - Demo Only */}
             {user.email === 'demo@uxflow.com' && (
-              <>
+              <Box sx={{ display: 'flex', gap: 0.5 }}>
                 <Button 
                   color="inherit" 
                   startIcon={<Dashboard />}
                   onClick={() => router.push('/dashboard')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   Dashboard
                 </Button>
@@ -78,7 +91,13 @@ export default function Header() {
                   color="inherit" 
                   startIcon={<Analytics />}
                   onClick={() => router.push('/manager')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   Gerencial
                 </Button>
@@ -86,7 +105,13 @@ export default function Header() {
                   color="inherit" 
                   startIcon={<Analytics />}
                   onClick={() => router.push('/analytics')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   Analytics SAP
                 </Button>
@@ -94,7 +119,13 @@ export default function Header() {
                   color="inherit" 
                   startIcon={<Assignment />}
                   onClick={() => router.push('/workflows')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   Workflows
                 </Button>
@@ -102,7 +133,13 @@ export default function Header() {
                   color="inherit" 
                   startIcon={<Business />}
                   onClick={() => router.push('/projects')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   Projetos SAP
                 </Button>
@@ -110,7 +147,13 @@ export default function Header() {
                   color="inherit" 
                   startIcon={<People />}
                   onClick={() => router.push('/professionals')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   Profissionais
                 </Button>
@@ -118,7 +161,13 @@ export default function Header() {
                   color="inherit" 
                   startIcon={<CloudQueue />}
                   onClick={() => router.push('/finops')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   FinOps BTP
                 </Button>
@@ -126,7 +175,13 @@ export default function Header() {
                   color="inherit" 
                   startIcon={<Speed />}
                   onClick={() => router.push('/performance')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   Performance
                 </Button>
@@ -134,7 +189,13 @@ export default function Header() {
                   color="inherit" 
                   startIcon={<Category />}
                   onClick={() => router.push('/activities')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   Atividades
                 </Button>
@@ -142,27 +203,46 @@ export default function Header() {
                   color="inherit" 
                   startIcon={<WhatsApp />}
                   onClick={() => router.push('/whatsapp')}
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    textTransform: 'none',
+                    px: 1.5,
+                    py: 0.5
+                  }}
                 >
                   WhatsApp
                 </Button>
-              </>
+              </Box>
             )}
 
             {/* User Menu */}
             <Box display="flex" alignItems="center" ml={2}>
               <Chip 
                 label={user.role.replace('_', ' ')}
-                color={getRoleColor(user.role)}
                 size="small"
-                sx={{ mr: 2, color: 'white' }}
+                sx={{ 
+                  mr: 2, 
+                  backgroundColor: 'rgba(255,255,255,0.2)',
+                  color: 'white',
+                  fontSize: '0.75rem',
+                  height: '1.5rem'
+                }}
               />
               
               <IconButton
                 onClick={handleMenuClick}
-                sx={{ color: 'white' }}
+                sx={{ 
+                  color: 'white',
+                  p: 0.5
+                }}
               >
-                <Avatar sx={{ width: 32, height: 32, bgcolor: 'rgba(255,255,255,0.2)' }}>
+                <Avatar sx={{ 
+                  width: 28, 
+                  height: 28, 
+                  bgcolor: 'rgba(255,255,255,0.2)',
+                  fontSize: '0.875rem'
+                }}>
                   {user.name?.charAt(0)}
                 </Avatar>
               </IconButton>
@@ -207,6 +287,16 @@ export default function Header() {
             variant="outlined" 
             color="inherit" 
             onClick={() => router.push('/login')}
+            sx={{
+              fontSize: '0.875rem',
+              fontWeight: 400,
+              textTransform: 'none',
+              borderColor: 'rgba(255,255,255,0.5)',
+              '&:hover': {
+                borderColor: 'white',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }
+            }}
           >
             Login
           </Button>

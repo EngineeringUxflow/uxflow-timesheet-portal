@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-uxflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-UxFlow2024!Prod}
+      POSTGRES_DB: ${POSTGRES_DB:-timesheet_prod}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"  # Porta interna para não conflitar
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-uxflow}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6380:6379"  # Porta alternativa
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    environment:
+      - DATABASE_URL=postgresql://uxflow:UxFlow2024!Prod@postgres:5432/timesheet_prod
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=production
+      - JWT_SECRET=uxflow_jwt_super_secret_production_2024
+      - GMAIL_USER=vladimir.ribeiro.abreu@gmail.com
+      - GMAIL_PASS=grtl waze ulit oeee
+    ports:
+      - "8000:8000"  # Backend na porta 8000
+    depends_on:
+      - postgres
+      - redis
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://31.97.175.224:8000
+    ports:
+      - "3000:3000"  # Frontend na porta 3000
+    depends_on:
+      - backend
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

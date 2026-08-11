@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { 
   Box, Container, Paper, TextField, Button, Typography, 
   Alert, Card, CardContent, IconButton, InputAdornment,
-  LinearProgress, Grid
+  LinearProgress, Grid, Divider
 } from '@mui/material';
 import { 
   Business, Person, Lock, Visibility, VisibilityOff, 
-  Email, CheckCircle, CloudQueue, Security
+  Email, CheckCircle, CloudQueue, Security, Schedule
 } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 
@@ -42,7 +42,6 @@ export default function LoginPage() {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
         
-        // Demo access for client presentations
         if (data.user.email === 'demo@uxflow.com') {
           router.push('/dashboard');
         } else {
@@ -59,235 +58,300 @@ export default function LoginPage() {
     }
   };
 
-  const handleRegister = async () => {
-    if (!registerData.companyName || !registerData.email || !registerData.name || !registerData.password) {
-      setError('Todos os campos são obrigatórios');
-      return;
-    }
-    
-    if (registerData.password !== registerData.confirmPassword) {
-      setError('Senhas não coincidem');
-      return;
-    }
-    
-    setLoading(true);
-    setError('');
-    
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(registerData)
-      });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        setSuccess('Empresa cadastrada com sucesso! Faça login.');
-        setActiveTab(0);
-      } else {
-        setError(data.error);
-      }
-    } catch (error) {
-      setError('Erro ao cadastrar empresa');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRecovery = async () => {
-    setLoading(true);
-    setError('');
-    
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(recoveryData)
-      });
-      
-      if (response.ok) {
-        setSuccess('Email de recuperação enviado! Verifique sua caixa de entrada.');
-        setActiveTab(0);
-      } else {
-        setError('Email não encontrado');
-      }
-    } catch (error) {
-      setError('Erro ao enviar email de recuperação');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <Box sx={{ 
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #1a365d 0%, #2d3748 50%, #3182ce 100%)',
+      background: '#f7f7f7', // SAP Fiori background
       display: 'flex',
       alignItems: 'center',
       py: 4,
-      position: 'relative',
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cpattern id='grid' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 10 0 L 0 0 0 10' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grid)'/%3E%3C/svg%3E")`,
-        opacity: 0.3
-      }
+      fontFamily: '"72", "Helvetica Neue", Arial, sans-serif' // SAP 72 font
     }}>
       <Container maxWidth="lg">
         <Grid container spacing={4} alignItems="center">
-          {/* Left Side - Branding */}
+          {/* Left Side - SAP Branding */}
           <Grid item xs={12} md={6}>
-            <Box sx={{ color: 'white', mb: { xs: 4, md: 0 } }}>
-              <Typography variant="h2" fontWeight="bold" gutterBottom>
-                UXFLOW
-              </Typography>
-              <Typography variant="h4" sx={{ opacity: 0.9, mb: 3 }}>
-                SAP Timesheet Portal
-              </Typography>
-              <Typography variant="h6" sx={{ opacity: 0.8, mb: 4 }}>
-                Software Engineering & Cloud Solutions
+            <Box sx={{ color: '#0070f3', mb: { xs: 4, md: 0 } }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <Schedule sx={{ fontSize: 48, mr: 2, color: '#0070f3' }} />
+                <Box>
+                  <Typography variant="h3" fontWeight="600" sx={{ color: '#333333' }}>
+                    UXFLOW
+                  </Typography>
+                  <Typography variant="h5" sx={{ color: '#0070f3' }}>
+                    Timesheet Portal
+                  </Typography>
+                </Box>
+              </Box>
+              
+              <Typography variant="h6" sx={{ color: '#666666', mb: 4, fontWeight: '400' }}>
+                Enterprise SAP Solutions & Cloud Integration
               </Typography>
               
-              {/* Features */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {/* SAP Features */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <CloudQueue sx={{ color: '#63b3ed' }} />
-                  <Typography>Integração SAP BTP + AWS/Azure/GCP</Typography>
+                  <Box sx={{ 
+                    width: 40, 
+                    height: 40, 
+                    borderRadius: '4px', 
+                    background: '#e3f2fd', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center' 
+                  }}>
+                    <CloudQueue sx={{ color: '#0070f3', fontSize: 20 }} />
+                  </Box>
+                  <Typography sx={{ color: '#333333', fontWeight: '400' }}>
+                    SAP BTP Integration & Cloud Solutions
+                  </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <Security sx={{ color: '#63b3ed' }} />
-                  <Typography>Portal Seguro Multi-Tenant</Typography>
+                  <Box sx={{ 
+                    width: 40, 
+                    height: 40, 
+                    borderRadius: '4px', 
+                    background: '#e8f5e8', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center' 
+                  }}>
+                    <Security sx={{ color: '#4caf50', fontSize: 20 }} />
+                  </Box>
+                  <Typography sx={{ color: '#333333', fontWeight: '400' }}>
+                    Enterprise Security & Multi-Tenant Architecture
+                  </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <CheckCircle sx={{ color: '#38a169' }} />
-                  <Typography>Analytics Avançados de Projetos</Typography>
+                  <Box sx={{ 
+                    width: 40, 
+                    height: 40, 
+                    borderRadius: '4px', 
+                    background: '#fff3e0', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center' 
+                  }}>
+                    <CheckCircle sx={{ color: '#ff9800', fontSize: 20 }} />
+                  </Box>
+                  <Typography sx={{ color: '#333333', fontWeight: '400' }}>
+                    Advanced Project Analytics & Reporting
+                  </Typography>
                 </Box>
               </Box>
             </Box>
           </Grid>
 
-          {/* Right Side - Login Form */}
+          {/* Right Side - Fiori Login Form */}
           <Grid item xs={12} md={6}>
-            <Paper elevation={24} sx={{ 
-              borderRadius: 4, 
+            <Paper elevation={0} sx={{ 
+              borderRadius: '8px', // Fiori border radius
               overflow: 'hidden',
-              background: 'rgba(255,255,255,0.98)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255,255,255,0.2)'
+              background: '#ffffff',
+              border: '1px solid #d9d9d9', // Fiori border
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' // Subtle Fiori shadow
             }}>
-              {/* Header */}
+              {/* Header with SAP Blue */}
               <Box sx={{ 
-                background: 'linear-gradient(135deg, #1a365d 0%, #3182ce 100%)',
+                background: '#0070f3', // SAP Blue
                 color: 'white',
                 p: 3,
-                textAlign: 'center'
+                textAlign: 'center',
+                position: 'relative'
               }}>
-                <Typography variant="h5" fontWeight="bold" gutterBottom>
-                  Portal SAP Timesheet
+                <Box sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '4px',
+                  background: 'linear-gradient(90deg, #0070f3, #0040a0)' // SAP accent
+                }} />
+                
+                <Schedule sx={{ fontSize: 32, mb: 1 }} />
+                <Typography variant="h5" fontWeight="600" gutterBottom>
+                  UXFLOW Timesheet
                 </Typography>
                 <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                  Acesse sua conta para continuar
+                  SAP Project Management Portal
                 </Typography>
               </Box>
 
-
-
               <Box sx={{ p: 4 }}>
-                {loading && <LinearProgress sx={{ mb: 2, borderRadius: 2 }} />}
-                {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>{error}</Alert>}
+                {loading && <LinearProgress sx={{ mb: 2, borderRadius: '2px' }} />}
+                {error && (
+                  <Alert 
+                    severity="error" 
+                    sx={{ 
+                      mb: 3, 
+                      borderRadius: '4px',
+                      border: '1px solid #d32f2f',
+                      backgroundColor: '#ffebee'
+                    }}
+                  >
+                    {error}
+                  </Alert>
+                )}
 
                 {/* LOGIN FORM */}
                 <Box>
-                    <TextField
-                      fullWidth
-                      label="Email"
-                      type="email"
-                      value={loginData.email}
-                      onChange={(e) => setLoginData({...loginData, email: e.target.value})}
-                      sx={{ mb: 3 }}
-                      InputProps={{
-                        startAdornment: <Person sx={{ mr: 1, color: '#1a365d' }} />
-                      }}
-                    />
-                    
-                    <TextField
-                      fullWidth
-                      label="Senha"
-                      type={showPassword ? 'text' : 'password'}
-                      value={loginData.password}
-                      onChange={(e) => setLoginData({...loginData, password: e.target.value})}
-                      sx={{ mb: 4 }}
-                      InputProps={{
-                        startAdornment: <Lock sx={{ mr: 1, color: '#1a365d' }} />,
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton onClick={() => setShowPassword(!showPassword)}>
-                              {showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                          </InputAdornment>
-                        )
-                      }}
-                    />
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    type="email"
+                    value={loginData.email}
+                    onChange={(e) => setLoginData({...loginData, email: e.target.value})}
+                    sx={{ 
+                      mb: 3,
+                      '& .MuiOutlinedInput-root': {
+                        borderRadius: '4px', // Fiori input radius
+                        '&:hover fieldset': {
+                          borderColor: '#0070f3'
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#0070f3',
+                          borderWidth: '2px'
+                        }
+                      },
+                      '& .MuiInputLabel-root.Mui-focused': {
+                        color: '#0070f3'
+                      }
+                    }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Person sx={{ color: '#6a6a6a' }} />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  
+                  <TextField
+                    fullWidth
+                    label="Senha"
+                    type={showPassword ? 'text' : 'password'}
+                    value={loginData.password}
+                    onChange={(e) => setLoginData({...loginData, password: e.target.value})}
+                    sx={{ 
+                      mb: 4,
+                      '& .MuiOutlinedInput-root': {
+                        borderRadius: '4px',
+                        '&:hover fieldset': {
+                          borderColor: '#0070f3'
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#0070f3',
+                          borderWidth: '2px'
+                        }
+                      },
+                      '& .MuiInputLabel-root.Mui-focused': {
+                        color: '#0070f3'
+                      }
+                    }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Lock sx={{ color: '#6a6a6a' }} />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowPassword(!showPassword)}
+                            sx={{ color: '#6a6a6a' }}
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
 
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      size="large"
-                      onClick={handleLogin}
-                      disabled={loading}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    onClick={handleLogin}
+                    disabled={loading}
+                    sx={{ 
+                      py: 1.5,
+                      borderRadius: '4px', // Fiori button radius
+                      background: '#0070f3', // SAP Blue
+                      color: '#ffffff',
+                      '&:hover': {
+                        background: '#0040a0', // Darker SAP Blue
+                        boxShadow: '0 4px 8px rgba(0, 112, 243, 0.3)'
+                      },
+                      '&:disabled': {
+                        background: '#cccccc',
+                        color: '#666666'
+                      },
+                      textTransform: 'none',
+                      fontSize: '1rem',
+                      fontWeight: '600',
+                      boxShadow: '0 2px 4px rgba(0, 112, 243, 0.2)'
+                    }}
+                  >
+                    {loading ? 'Entrando...' : 'Entrar'}
+                  </Button>
+
+                  <Divider sx={{ my: 3, borderColor: '#e0e0e0' }} />
+
+                  {/* Demo Credentials - Fiori Style */}
+                  <Box sx={{ 
+                    p: 3, 
+                    bgcolor: '#f8f9fa', 
+                    borderRadius: '4px',
+                    border: '1px solid #e0e0e0'
+                  }}>
+                    <Typography variant="subtitle2" gutterBottom sx={{ 
+                      color: '#333333',
+                      fontWeight: '600'
+                    }}>
+                      🎯 Credenciais Demo
+                    </Typography>
+                    <Box display="flex" flexDirection="column" gap={1}>
+                      <Typography variant="body2" sx={{ color: '#666666' }}>
+                        <strong>Email:</strong> demo@uxflow.com
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: '#666666' }}>
+                        <strong>Senha:</strong> demo123
+                      </Typography>
+                    </Box>
+                    <Button 
+                      size="small" 
+                      variant="outlined"
                       sx={{ 
-                        mb: 3, 
-                        py: 1.5, 
-                        borderRadius: 3,
-                        background: 'linear-gradient(135deg, #1a365d 0%, #3182ce 100%)',
-                        fontSize: '1.1rem',
-                        fontWeight: 600,
-                        '&:hover': {
-                          background: 'linear-gradient(135deg, #2d3748 0%, #2b6cb0 100%)',
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 8px 25px rgba(26, 54, 93, 0.3)'
+                        mt: 2,
+                        borderRadius: '4px',
+                        borderColor: '#0070f3', 
+                        color: '#0070f3',
+                        textTransform: 'none',
+                        fontWeight: '500',
+                        '&:hover': { 
+                          bgcolor: '#0070f3', 
+                          color: 'white',
+                          borderColor: '#0070f3'
                         }
                       }}
+                      onClick={() => setLoginData({email: 'demo@uxflow.com', password: 'demo123'})}
                     >
-                      {loading ? 'Entrando...' : 'Entrar'}
+                      Preencher Automaticamente
                     </Button>
-
-                    {/* Demo Credentials */}
-                    <Card sx={{ mt: 3, bgcolor: '#f7fafc', border: '1px solid #e2e8f0' }}>
-                      <CardContent sx={{ py: 2 }}>
-                        <Typography variant="subtitle2" gutterBottom color="#1a365d" fontWeight={600}>
-                          🚀 Credenciais Demo:
-                        </Typography>
-                        <Box display="flex" flexDirection="column" gap={1}>
-                          <Typography variant="body2" color="#4a5568">
-                            <strong>Email:</strong> demo@uxflow.com
-                          </Typography>
-                          <Typography variant="body2" color="#4a5568">
-                            <strong>Senha:</strong> demo123
-                          </Typography>
-                        </Box>
-                        <Button 
-                          size="small" 
-                          variant="outlined"
-                          sx={{ 
-                            mt: 2,
-                            borderColor: '#3182ce', 
-                            color: '#3182ce',
-                            '&:hover': { bgcolor: '#3182ce', color: 'white' }
-                          }}
-                          onClick={() => setLoginData({email: 'demo@uxflow.com', password: 'demo123'})}
-                        >
-                          Preencher Automaticamente
-                        </Button>
-                      </CardContent>
-                    </Card>
-
+                  </Box>
                 </Box>
+              </Box>
+
+              {/* Footer */}
+              <Box sx={{
+                p: 3,
+                bgcolor: '#fafafa',
+                textAlign: 'center',
+                borderTop: '1px solid #e0e0e0'
+              }}>
+                <Typography variant="body2" sx={{ color: '#666666' }}>
+                  © 2024 UXFLOW Consultoria • SAP Solutions
+                </Typography>
               </Box>
             </Paper>
           </Grid>
